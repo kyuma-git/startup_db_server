@@ -1,0 +1,40 @@
+<h1>企業一覧</h1>
+<p>
+  <%= form_tag import_companies_path, multipart: true do %>
+    <%= file_field_tag :file %>
+    <%= submit_tag "インポート" %>
+  <% end %>
+</p>
+<p>
+  <%= form_with(scope: :search, url: companies_path, method: :get, local: true) do |f| %>
+    <%= f.text_field :name, :placeholder => "企業名を入力" %>
+    <%= f.submit('検索') %>
+  <% end %>
+</p>
+<p>
+  <%= form_with(scope: :search, url: companies_path, method: :get, local: true) do |f| %>
+    <%= f.submit('全ての企業') %>
+  <% end %>
+</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="background-color: #F2F2F2;">ID</th>
+      <th style="background-color: #F2F2F2;">名前</th>
+      <th style="background-color: #F2F2F2;">設立年月日</th>
+      <th style="background-color: #F2F2F2;">住所</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @companies.each do |c| %>
+      <tr>
+        <td style="background-color: #F2F2F2;"><%= c.id %></td>
+        <td style="background-color: #E0ECF8;"><%= c.name %></td>
+        <td style="background-color: #F8ECE0;"><%= c.founded %></td>
+        <td style="background-color: #F8ECE0;"><%= c.adress %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
