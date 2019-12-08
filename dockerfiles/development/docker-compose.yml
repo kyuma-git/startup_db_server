@@ -1,0 +1,44 @@
+version: "3"
+services:
+  # db:
+  #   build:
+  #     context: ./postgres
+  #   restart: always
+  #   container_name: startup_db
+  #   environment:
+  #     POSTGRES_PASSWORD:
+  #     TZ: Asia/Tokyo
+  #   ports:
+  #     - "13308:3306"
+
+  # web:
+  #   build:
+  #     context: ./ruby
+  #     args:
+  #       - VERSION=2.5.3
+  #   command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+  #   volumes:
+  #     - .:/myapp
+  #   ports:
+  #     - "3000:3000"
+  #   depends_on:
+  #     - db
+
+  elasticsearch:
+    build:
+      context: ./elasticsearch
+    container_name: elasticsearch
+    environment:
+      - node.name=elasticsearch
+      - cluster.name=es-docker-cluster
+      - cluster.initial_master_nodes=elasticsearch
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    # volumes:
+    #   - data:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200

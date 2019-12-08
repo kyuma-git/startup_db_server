@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_20_104015) do
+ActiveRecord::Schema.define(version: 2019_12_06_031303) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(version: 2019_11_20_104015) do
     t.string "linkedin"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "members"
     t.index ["city_id"], name: "index_companies_on_city_id"
     t.index ["country_id"], name: "index_companies_on_country_id"
     t.index ["stage_id"], name: "index_companies_on_stage_id"
