@@ -5,17 +5,28 @@
     <%= submit_tag "インポート" %>
   <% end %>
 </p>
+
+<p>
+  <%= form_with(scope: :search, url: companies_path, method: :get, local: true) do |f| %>
+    <%= f.submit('全ての企業') %>
+  <% end %>
+</p>
+
 <p>
   <%= form_with(scope: :search, url: companies_path, method: :get, local: true) do |f| %>
     <%= f.text_field :name, :placeholder => "企業名を入力" %>
     <%= f.submit('検索') %>
   <% end %>
 </p>
-<p>
+
+<div>
   <%= form_with(scope: :search, url: companies_path, method: :get, local: true) do |f| %>
-    <%= f.submit('全ての企業') %>
+    <%= f.select :country_id , Country.all.map { |c| [c.name, c.id] }.to_h, include_blank: true %>
+    <%= f.select :members , [['1~10', 1],['10~30', 2],['30~50', 3],['50~100', 4]] , include_blank: true %>
+    <%= f.submit('検索') %>
   <% end %>
-</p>
+</div>
+
 
 <table>
   <thead>
@@ -23,7 +34,9 @@
       <th style="background-color: #F2F2F2;">ID</th>
       <th style="background-color: #F2F2F2;">名前</th>
       <th style="background-color: #F2F2F2;">設立年月日</th>
-      <th style="background-color: #F2F2F2;">住所</th>
+      <th style="background-color: #F2F2F2;">従業員数</th>
+      <th style="background-color: #F2F2F2;">概要</th>
+      <th style="background-color: #F2F2F2;">国</th>
     </tr>
   </thead>
 
@@ -33,7 +46,9 @@
         <td style="background-color: #F2F2F2;"><%= c.id %></td>
         <td style="background-color: #E0ECF8;"><%= c.name %></td>
         <td style="background-color: #F8ECE0;"><%= c.founded %></td>
+        <td style="background-color: #F8ECE0;"><%= c.members %></td>
         <td style="background-color: #F8ECE0;"><%= c.adress %></td>
+        <td style="background-color: #F8ECE0;"><%= c.country_id %></td>
       </tr>
     <% end %>
   </tbody>

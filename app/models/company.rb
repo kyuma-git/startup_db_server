@@ -1,23 +1,27 @@
 require 'csv'
 
 class Company < ApplicationRecord
+  belongs_to :country
+
+  scope :search_by_name, -> (search_params) do
+    return if search_params.blank?
+    name_like(search_params[:name])
+    .number_of_members(search_params[:members])
+  end
+
   scope :search, -> (search_params) do
     return if search_params.blank?
-
-    name_like(search_params[:name])
+    country(search_params[:country_id])
   end
-  scope :search_founded, -> (search_params) do
-    return if search_params.blank?
 
-    founded_from(search_params[:founded])
-      .founded_to(search_params[:founded])
-  end
   scope :name_like, -> (name) { where('name LIKE ?', "%#{name}%") if name.present? }
-  scope :founded_from, -> (from) { where('? <= founded', from) if from.present? }
-  scope :founded_to, -> (to) { where('founded <= ?', to) if to.present? }
+  scope :number_of_members, -> (members) { where('members <= ?', members)}
+  scope :country, -> (country_id) {where(country_id: country_id) if country_id.present?}
+  # scope :founded_from, -> (from) { where('? <= founded', from) if from.present? }
+  # scope :founded_to, -> (to) { where('founded <= ?', to) if to.present? }
 
-  def self.import(file)
-    CSV.foreach(file.path, headers: true, encoding: 'Shift_JIS:UTF-8') do |row|
+  def self.japan_import(file)
+    CSV.foreach(file.path, headers: true, encoding: 'UTF-8') do |row|
       company = find_by(id: row["id"]) || new
       company.attributes = row.to_hash.slice(*updatable_attributes)
       company.save
@@ -25,6 +29,19 @@ class Company < ApplicationRecord
   end
 
   def self.updatable_attributes
-    ["id", "name", "adress", "founded", "country_id"]
+    ["id", "name", "adress", "founded", "members", "country_id"]
   end
+
+  def self.israel_import(file)
+    CSV.foreach(file.path, headers: true, encoding: 'UTF-8') do |row|
+      company = find_by(id: row["id"]) || new
+      company.attributes = row.to_hash.slice(*updatable_attributes)
+      company.save
+    end
+  end
+
+  def self.updatable_attributes
+    ["id", "name", "adress", "founded", "members", "country_id"]
+  end
+
 end
