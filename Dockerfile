@@ -12,4 +12,4 @@ RUN apt-get install -y nodejs
 
 # ワーキングディレクトリの設定
 RUN mkdir /app
-WORKDIR /app
+WORKDIR /appa
