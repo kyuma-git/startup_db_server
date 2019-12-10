@@ -1,15 +1,14 @@
 default: &default
-  adapter: postgresql
-  encoding: unicode
-  host: localhost
-  username: kyuma
-  password:
-  pool: 5
+  adapter: sqlite3
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  timeout: 5000
 
 development:
   <<: *default
-  database: global_db_development
-
+  database: db/development.sqlite3
 test:
   <<: *default
-  database: global_db_test
+  database: db/test.sqlite3
+# production:
+#   <<: *default
+#   database: db/production.sqlite3

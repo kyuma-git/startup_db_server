@@ -21,8 +21,10 @@
 
 <div>
   <%= form_with(scope: :search, url: companies_path, method: :get, local: true) do |f| %>
-    <%= f.select :country_id , Country.all.map { |c| [c.name, c.id] }.to_h, include_blank: true %>
+  <!--
+    <%= f.select :country , Country.all.map { |c| [c.name, c.id] }.to_h, include_blank: true %>
     <%= f.select :members , [['1~10', 1],['10~30', 2],['30~50', 3],['50~100', 4]] , include_blank: true %>
+  -->
     <%= f.submit('検索') %>
   <% end %>
 </div>
@@ -33,10 +35,9 @@
     <tr>
       <th style="background-color: #F2F2F2;">ID</th>
       <th style="background-color: #F2F2F2;">名前</th>
-      <th style="background-color: #F2F2F2;">設立年月日</th>
-      <th style="background-color: #F2F2F2;">従業員数</th>
       <th style="background-color: #F2F2F2;">概要</th>
-      <th style="background-color: #F2F2F2;">国</th>
+      <th style="background-color: #F2F2F2;">設立者</th>
+      <th style="background-color: #F2F2F2;">業種</th>
     </tr>
   </thead>
 
@@ -45,10 +46,9 @@
       <tr>
         <td style="background-color: #F2F2F2;"><%= c.id %></td>
         <td style="background-color: #E0ECF8;"><%= c.name %></td>
-        <td style="background-color: #F8ECE0;"><%= c.founded %></td>
-        <td style="background-color: #F8ECE0;"><%= c.members %></td>
-        <td style="background-color: #F8ECE0;"><%= c.adress %></td>
-        <td style="background-color: #F8ECE0;"><%= c.country_id %></td>
+        <td style="background-color: #F8ECE0;"><%= c.description %></td>
+        <td style="background-color: #F8ECE0;"><%= c.founder %></td>
+        <td style="background-color: #F8ECE0;"><%= c.industry %></td>
       </tr>
     <% end %>
   </tbody>

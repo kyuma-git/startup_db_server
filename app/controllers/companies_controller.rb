@@ -5,7 +5,7 @@ class CompaniesController < ApplicationController
   end
 
   def company_search_params
-    params.fetch(:search, {}).permit(:name, :members, :country_id)
+    params.fetch(:search, {}).permit(:name, :country)
   end
 
   def show
