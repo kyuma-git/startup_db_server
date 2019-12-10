@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_10_091443) do
+ActiveRecord::Schema.define(version: 2019_12_10_103907) do
 
   create_table "cities", force: :cascade do |t|
     t.string "name", null: false
@@ -30,7 +30,6 @@ ActiveRecord::Schema.define(version: 2019_12_10_091443) do
     t.string "established_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "funding_stage"
     t.string "members"
     t.string "share_holder"
     t.string "origin"
@@ -49,7 +48,9 @@ ActiveRecord::Schema.define(version: 2019_12_10_091443) do
     t.string "linkedin"
     t.string "country"
     t.integer "country_id"
+    t.integer "funding_stage_id"
     t.index ["country_id"], name: "index_companies_on_country_id"
+    t.index ["funding_stage_id"], name: "index_companies_on_funding_stage_id"
   end
 
   create_table "company_tags", force: :cascade do |t|
@@ -62,6 +63,12 @@ ActiveRecord::Schema.define(version: 2019_12_10_091443) do
   end
 
   create_table "countries", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "funding_stages", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
