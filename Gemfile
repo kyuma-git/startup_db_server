@@ -18,6 +18,9 @@ gem 'jquery-rails'
 gem 'roo'
 # gem 'elasticsearch-model'
 # gem 'elasticsearch-rails'
+gem 'devise'
+gem 'kaminari'
+gem 'kaminari-bootstrap'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

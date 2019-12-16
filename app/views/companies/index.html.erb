@@ -1,50 +1,152 @@
+<div class="row">
+  <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+    <div class="sidebar-sticky">
+      <ul class="nav flex-column">
+        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+          <span>探す</span>
+        </h6>
+        <li class="nav-item">
+          <a class="nav-link active" href="#">
+            <span data-feather="home"></span>
+            条件から探す <span class="sr-only">(current)</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">
+            <span data-feather="file"></span>
+            目的から選ぶ
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">
+            <span data-feather="users"></span>
+            投資家を探す
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">
+            <span data-feather="users"></span>
+            起業家を探す
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">
+            <span data-feather="bar-chart-2"></span>
+            最新上場Info
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">
+            <span data-feather="layers"></span>
+            VCの業界分析特集
+          </a>
+        </li>
+      </ul>
 
-<div style="padding: 0 20px;">
-  <p>
-    <%= form_tag import_companies_path, multipart: true do %>
-        <span><%= file_field_tag :file %></span>
-        <span><%= file_field_tag :file %></span>
-        <p><%= submit_tag "インポート" %></p>
-    <% end %>
-  </p>
+      <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+        <span>オープンイノベーション特集</span>
+      </h6>
+      <ul class="nav flex-column mb-2">
+        <li class="nav-item">
+          <a class="nav-link" href="#">
+            <span data-feather="file-text"></span>
+            中国
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">
+            <span data-feather="file-text"></span>
+            イスラエル
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">
+            <span data-feather="file-text"></span>
+            アフリカ
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">
+            <span data-feather="file-text"></span>
+            インド
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
 
-  <p>
-    <%= form_with(scope: :search, url: companies_path, method: :get, local: true) do |f| %>
-      <%= f.submit('全ての企業') %>
-    <% end %>
-  </p>
+  <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+      <section class="search-area">
+      <!--
+        <p>
+          <%= form_with(scope: :search, url: companies_path, method: :get, local: true) do |f| %>
+            <%= f.submit('全ての企業') %>
+          <% end %>
+        </p>
+      -->
+        <div style="padding: 50px 10px;">
+          <%= form_with(scope: :search, url: companies_path, method: :get, local: true) do |f| %>
+            <%= f.text_field :name, :placeholder => "企業名を入力" %>
+            <%= f.select :country_id , Country.all.map { |c| [c.name, c.id] }.to_h, :prompt => "国を選択" %>
+            <%= f.select :funding_stage_id , FundingStage.all.map { |c| [c.name, c.id] }.to_h,  :prompt => "ステージを選択" %>
+            <%= f.select :industry, [["ヘルスケア", "ヘルスケア"&&"Health"], ["医療", "医療"],  ["ソフトウェア", "Software"&&"ソフトウェア"], ["半導体", "半導体"],["不動産", "不動産"]], :prompt => "業界を選択" %>
+            <%= f.submit('検索') %>
+          <% end %>
+        </div>
+      </section>
+      <div class="btn-toolbar mb-2 mb-md-0">
+        <div class="btn-group mr-2">
+          <button class="btn btn-sm btn-outline-secondary">シェア</button>
+          <button class="btn btn-sm btn-outline-secondary">ダウンロード</button>
+        </div>
+        <button class="btn btn-sm btn-outline-secondary dropdown-toggle">
+          <span data-feather="calendar"></span>
+          期間
+        </button>
+      </div>
+    </div>
+    <p>
+      <span style="font-size: 15px; color: #a9a9a9;">検索結果</span>
+      <span style="font-size: 18px; color: #696969;"> 1,455</span>
+      <span style="font-size: 15px; color: #a9a9a9;">社</span>
+    </p>
+    <div class="table-responsive">
+      <table class="table table-striped table-sm">
+        <thead>
+          <tr>
+            <th style="background-color: #F2F2F2;">会社名</th>
+            <th style="background-color: #F2F2F2;">概要</th>
+            <th style="background-color: #F2F2F2;">設立者</th>
+            <th style="background-color: #F2F2F2;">業種</th>
+            <th style="background-color: #F2F2F2;">総調達額</th>
+            <th style="background-color: #F2F2F2;">資金提携</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @companies.each do |c| %>
+            <tr style="border-bottom: 1px solid gray">
+              <td><%= c.name %></td>
+              <td><%= c.tag %></td>
+              <td><%= c.founder %></td>
+              <td><%= c.industry %></td>
+              <td><%= c.total_fund_amount %></td>
+              <td><%= c.share_holder %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+
+    <div>
+      <%= paginate @companies %>
+      <p>
+        <%= form_tag import_companies_path, multipart: true do %>
+            <span><%= file_field_tag :file %></span>
+            <span><%= file_field_tag :file %></span>
+            <p><%= submit_tag "インポート" %></p>
+        <% end %>
+      </p>
+    </div>
+  </main>
 </div>
-
-<div style="padding: 50px 10px;">
-  <%= form_with(scope: :search, url: companies_path, method: :get, local: true) do |f| %>
-    <%= f.text_field :name, :placeholder => "企業名を入力" %>
-    <%= f.select :country_id , Country.all.map { |c| [c.name, c.id] }.to_h, :prompt => "国を選択" %>
-    <%= f.select :funding_stage_id , FundingStage.all.map { |c| [c.name, c.id] }.to_h,  :prompt => "ステージを選択" %>
-    <%= f.select :industry, [["ヘルスケア", "ヘルスケア"], ["医療", "医療"],  ["ソフトウェア", "ソフトウェア"], ["半導体", "半導体"],["不動産", "不動産"]], :prompt => "業界を選択" %>
-    <%= f.submit('検索') %>
-  <% end %>
-</div>
-
-<table style="margin-top: 30px;">
-  <thead>
-    <tr>
-      <th style="background-color: #F2F2F2;">ID</th>
-      <th style="background-color: #F2F2F2;">名前</th>
-      <th style="background-color: #F2F2F2;">概要</th>
-      <th style="background-color: #F2F2F2;">設立者</th>
-      <th style="background-color: #F2F2F2;">業種</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @companies.each do |c| %>
-      <tr>
-        <td style="background-color: #F2F2F2;"><%= c.id %></td>
-        <td style="background-color: #E0ECF8;"><%= c.name %></td>
-        <td style="background-color: #F8ECE0;"><%= c.description %></td>
-        <td style="background-color: #F8ECE0;"><%= c.founder %></td>
-        <td style="background-color: #F8ECE0;"><%= c.industry %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>

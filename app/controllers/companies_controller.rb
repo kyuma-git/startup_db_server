@@ -1,7 +1,7 @@
 class CompaniesController < ApplicationController
   def index
     @search_params = company_search_params
-    @companies = Company.search(@search_params)
+    @companies = Company.search(@search_params).page(params[:page]).per(30)
   end
 
   def company_search_params
