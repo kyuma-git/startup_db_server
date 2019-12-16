@@ -1,25 +1,22 @@
-# README
+# SAMURAI GLOBAL DATABASE
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is the document for developer who contribute to the project.
+Things you need to know and setup:
 
-Things you may want to cover:
+- Ruby version
+  2.5.5
+- System dependencies
 
-* Ruby version
+- Configuration
 
-* System dependencies
+- Database creation
+  bundle exec rails db:create
 
-* Configuration
+- Database initialization
+  bundle exec rails db:migrate
 
-* Database creation
+- How to run the test suite
+  bundle exec rails server
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-# startup_db_server
+- Deployment instructions
+  git push heroku master
