@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_13_014113) do
+ActiveRecord::Schema.define(version: 2019_12_19_073549) do
 
   create_table "cities", force: :cascade do |t|
     t.string "name", null: false
@@ -49,6 +49,7 @@ ActiveRecord::Schema.define(version: 2019_12_13_014113) do
     t.string "country"
     t.integer "country_id"
     t.integer "funding_stage_id"
+    t.string "funding_stage"
     t.index ["country_id"], name: "index_companies_on_country_id"
     t.index ["funding_stage_id"], name: "index_companies_on_funding_stage_id"
   end

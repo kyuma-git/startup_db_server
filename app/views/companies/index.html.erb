@@ -89,7 +89,7 @@
           <%= form_with(scope: :search, url: companies_path, method: :get, local: true) do |f| %>
             <%= f.text_field :name, :placeholder => "企業名を入力" %>
             <%= f.select :country_id , Country.all.map { |c| [c.name, c.id] }.to_h, :prompt => "国を選択" %>
-            <%= f.select :funding_stage_id , FundingStage.all.map { |c| [c.name, c.id] }.to_h,  :prompt => "ステージを選択" %>
+            <%= f.select :funding_stage , FundingStage.all.map { |c| [ c.name, c.name] }.to_h,  :prompt => "ステージを選択" %>
             <%= f.select :industry, [["ヘルスケア", "ヘルスケア"&&"Health"], ["医療", "医療"],  ["ソフトウェア", "Software"&&"ソフトウェア"], ["半導体", "半導体"],["不動産", "不動産"]], :prompt => "業界を選択" %>
             <%= f.submit('検索') %>
           <% end %>
@@ -108,7 +108,7 @@
     </div>
     <p>
       <span style="font-size: 15px; color: #a9a9a9;">検索結果</span>
-      <span style="font-size: 18px; color: #696969;"> 1,455</span>
+      <span style="font-size: 18px; color: #696969;"><%= @companies.size %></span>
       <span style="font-size: 15px; color: #a9a9a9;">社</span>
     </p>
     <div class="table-responsive">
@@ -124,7 +124,7 @@
           </tr>
         </thead>
         <tbody>
-          <% @companies.each do |c| %>
+          <% @companies_show.each do |c| %>
             <tr style="border-bottom: 1px solid gray">
               <td><%= c.name %></td>
               <td><%= c.tag %></td>
@@ -139,7 +139,7 @@
     </div>
 
     <div>
-      <%= paginate @companies %>
+      <%= paginate @companies_show %>
       <p>
         <%= form_tag import_companies_path, multipart: true do %>
             <span><%= file_field_tag :file %></span>
