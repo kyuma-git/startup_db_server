@@ -9,8 +9,9 @@ default: &default
 
 development:
   <<: *default
-  adapter: sqlite3
-  database: db/development.sqlite3
+  # database: db/development.sqlite3
+  database: global_db_development
+
 # test:
 #   <<: *default
 #   database: db/test.sqlite3
@@ -23,6 +24,7 @@ staging:
 
 production:
   <<: *default
+  database: global_db_production
   adapter: mysql2
   port: 3306
   database: mysql2
