@@ -1,10 +1,15 @@
 default: &default
-  adapter: sqlite3
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  timeout: 5000
+  adapter: mysql2
+  charset: utf8mb4
+  encoding: utf8mb4
+  collation: utf8mb4_general_ci
+  pool: 10
+  username: 'samurai'
+  password: 'samurai'
 
 development:
   <<: *default
+  adapter: sqlite3
   database: db/development.sqlite3
 # test:
 #   <<: *default
@@ -16,6 +21,8 @@ staging:
   adapter: mysql2
   port: 3306
 
-# production:
-#   <<: *default
-#   database: db/production.sqlite3
+production:
+  <<: *default
+  adapter: mysql2
+  port: 3306
+  database: mysql2
