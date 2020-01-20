@@ -91,6 +91,8 @@
             <%= f.select :country_id , Country.all.map { |c| [c.name, c.id] }.to_h, :prompt => "国を選択" %>
             <%= f.select :funding_stage , FundingStage.all.map { |c| [ c.name, c.name] }.to_h,  :prompt => "ステージを選択" %>
             <%= f.select :industry, [["ヘルスケア", "ヘルスケア"&&"Health"], ["医療", "医療"],  ["ソフトウェア", "Software"&&"ソフトウェア"], ["半導体", "半導体"],["不動産", "不動産"]], :prompt => "業界を選択" %>
+            <!--<%= f.label :has_vc, "VCありに限定" %>
+            <%= f.check_box :has_vc ,{}, "true", "false" %>-->
             <%= f.submit('検索') %>
           <% end %>
         </div>
@@ -116,22 +118,24 @@
         <thead>
           <tr>
             <th style="background-color: #F2F2F2;">会社名</th>
-            <th style="background-color: #F2F2F2;">概要</th>
             <th style="background-color: #F2F2F2;">設立者</th>
             <th style="background-color: #F2F2F2;">業種</th>
             <th style="background-color: #F2F2F2;">総調達額</th>
+            <th style="background-color: #F2F2F2;">最終調達日</th>
             <th style="background-color: #F2F2F2;">資金提携</th>
+            <th style="background-color: #F2F2F2;">概要</th>
           </tr>
         </thead>
         <tbody>
           <% @companies_show.each do |c| %>
             <tr style="border-bottom: 1px solid gray">
               <td><%= c.name %></td>
-              <td><%= c.tag %></td>
               <td><%= c.founder %></td>
               <td><%= c.industry %></td>
               <td><%= c.total_fund_amount %></td>
+              <td><%= c.last_funded_date %></td>
               <td><%= c.share_holder %></td>
+              <td><%= c.description %></td>
             </tr>
           <% end %>
         </tbody>

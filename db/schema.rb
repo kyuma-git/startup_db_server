@@ -10,26 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_19_073549) do
+ActiveRecord::Schema.define(version: 2020_01_20_022746) do
 
-  create_table "cities", force: :cascade do |t|
+  create_table "cities", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name", null: false
-    t.integer "country_id", null: false
+    t.bigint "country_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["country_id"], name: "index_cities_on_country_id"
   end
 
-  create_table "companies", force: :cascade do |t|
+  create_table "companies", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name", null: false
-    t.string "description"
-    t.string "tag"
+    t.text "description"
+    t.text "tag"
     t.string "founder"
     t.string "total_fund_amount"
     t.string "region"
     t.string "established_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "funding_stage"
     t.string "members"
     t.string "share_holder"
     t.string "origin"
@@ -48,62 +49,34 @@ ActiveRecord::Schema.define(version: 2019_12_19_073549) do
     t.string "linkedin"
     t.string "country"
     t.integer "country_id"
-    t.integer "funding_stage_id"
-    t.string "funding_stage"
-    t.index ["country_id"], name: "index_companies_on_country_id"
-    t.index ["funding_stage_id"], name: "index_companies_on_funding_stage_id"
+    t.string "last_funded_date"
   end
 
-  create_table "company_tags", force: :cascade do |t|
-    t.integer "company_id", null: false
-    t.integer "tag_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["company_id"], name: "index_company_tags_on_company_id"
-    t.index ["tag_id"], name: "index_company_tags_on_tag_id"
-  end
-
-  create_table "countries", force: :cascade do |t|
+  create_table "countries", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "funding_stages", force: :cascade do |t|
+  create_table "funding_stages", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "markets", force: :cascade do |t|
+  create_table "markets", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "members", force: :cascade do |t|
-    t.string "name", null: false
-    t.string "img"
-    t.string "description"
-    t.integer "company_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["company_id"], name: "index_members_on_company_id"
-  end
-
-  create_table "stages", force: :cascade do |t|
+  create_table "tags", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "tags", force: :cascade do |t|
-    t.string "name", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "users", force: :cascade do |t|
+  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
@@ -116,4 +89,5 @@ ActiveRecord::Schema.define(version: 2019_12_19_073549) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "cities", "countries"
 end

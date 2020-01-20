@@ -1,2 +1,0 @@
-class CompanyTag < ApplicationRecord
-end

@@ -1,7 +1,7 @@
 require 'csv'
 class Company < ApplicationRecord
   belongs_to :country
-  # belongs_to :funding_stage
+  belongs_to :funding_stage
 
   validates :name, uniqueness: true
 
@@ -11,12 +11,14 @@ class Company < ApplicationRecord
     .country(search_params[:country_id])
     .funding_stage(search_params[:funding_stage])
     .industry_like(search_params[:industry])
+    .has_vc(search_params[:share_holder])
   end
 
   scope :name_like, -> (name) { where('name LIKE ?', "%#{name}%") if name.present?}
   scope :country, -> (country_id) {where(country_id: country_id) if country_id.present?}
   scope :funding_stage, -> (funding_stage) {where('funding_stage LIKE?', "%#{funding_stage}%") if funding_stage.present?}
   scope :industry_like, -> (industry) { where('industry LIKE ?', "%#{industry}%") if industry.present?}
+  scope :has_vc, -> (share_holder) { where('share_holder LIKE ?', "vc") }
 
   def self.import(file)
     CSV.foreach(file.path, headers: true, encoding: 'UTF-8') do |row|
@@ -24,7 +26,7 @@ class Company < ApplicationRecord
       # if company.valid?
         p "great"
         company.attributes = row.to_hash.slice(*updatable_attributes)
-        if company.save
+        if company.save!
           p "saved"
         else
           next
