@@ -4,12 +4,12 @@ default: &default
 
 development:
   <<: *default
-  adapter: mysql2
+  adapter: sqlite3
   database: global_db_development
 
 test:
   <<: *default
-  adapter: mysql2
+  adapter: sqlite3
   database: global_db_test
 
 production:
