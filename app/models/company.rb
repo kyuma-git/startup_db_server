@@ -1,7 +1,7 @@
 require 'csv'
 class Company < ApplicationRecord
   belongs_to :country
-  belongs_to :funding_stage
+  # belongs_to :funding_stage
 
   validates :name, uniqueness: true
 
@@ -23,19 +23,11 @@ class Company < ApplicationRecord
   def self.import(file)
     CSV.foreach(file.path, headers: true, encoding: 'UTF-8') do |row|
       company = find_by(id: row["id"]) || new
-      # if company.valid?
-        p "great"
-        company.attributes = row.to_hash.slice(*updatable_attributes)
-        if company.save!
-          p "saved"
-        else
-          next
-        end
-      # else
-        # p "same"/
-        # # company.attributes = row.to_hash.slice(*updatable_attributes)
-        # company.update!
-      # end
+      company.attributes = row.to_hash.slice(*updatable_attributes)
+      if company.save
+      else
+        next
+      end
     end
   end
 
@@ -52,7 +44,6 @@ class Company < ApplicationRecord
       "established_date",
       "created_at",
       "updated_at",
-      "funding_stage",
       "members",
       "share_holder",
       "origin",

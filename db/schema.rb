@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_13_012626) do
+ActiveRecord::Schema.define(version: 2020_01_26_195734) do
 
   create_table "cities", force: :cascade do |t|
     t.string "name", null: false
@@ -48,6 +48,8 @@ ActiveRecord::Schema.define(version: 2019_12_13_012626) do
     t.string "instagram"
     t.string "linkedin"
     t.string "country"
+    t.string "country_id"
+    t.string "last_funded_date"
   end
 
   create_table "countries", force: :cascade do |t|
