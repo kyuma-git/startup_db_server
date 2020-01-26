@@ -1,5 +1,5 @@
 class AddColumnToCompany < ActiveRecord::Migration[5.2]
   def change
-    add_column :companies, :last_funded_date, :string
+    add_column :companies, :country_id, :string
   end
 end
