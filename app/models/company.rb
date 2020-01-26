@@ -19,6 +19,7 @@ class Company < ApplicationRecord
   scope :funding_stage, -> (funding_stage) {where('funding_stage LIKE?', "%#{funding_stage}%") if funding_stage.present?}
   scope :industry_like, -> (industry) { where('industry LIKE ?', "%#{industry}%") if industry.present?}
   scope :has_vc, -> (share_holder) { where('share_holder LIKE ?', "vc") }
+  scope :latest, -> { order(created_at: :desc).limit(10) } 
 
   def self.import(file)
     CSV.foreach(file.path, headers: true, encoding: 'UTF-8') do |row|

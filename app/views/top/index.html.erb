@@ -1,0 +1,103 @@
+<div class="row">
+  <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+    <div class="sidebar-sticky">
+      <ul class="nav flex-column">
+        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+          <span>探す</span>
+        </h6>
+        <li class="nav-item">
+          <%= link_to root_path(), class: "nav-link" do %>
+            <span data-feather="file"></span>
+            トップ
+          <% end %>
+        </li>
+        <li class="nav-item">
+          <%= link_to companies_path(), class: "nav-link active" do %>
+            <span data-feather="home"></span>
+              企業を探す              
+            <span class="sr-only">(current)</span>
+          <% end %>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">
+            <span data-feather="users"></span>
+            投資家を探す
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">
+            <span data-feather="users"></span>
+            起業家を探す
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">
+            <span data-feather="bar-chart-2"></span>
+            最新上場Info
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">
+            <span data-feather="layers"></span>
+            VCの業界分析特集
+          </a>
+        </li>
+      </ul>
+
+      <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+        <span>オープンイノベーション特集</span>
+      </h6>
+      <ul class="nav flex-column mb-2">
+        <li class="nav-item">
+          <a class="nav-link" href="#">
+            <span data-feather="file-text"></span>
+            中国
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">
+            <span data-feather="file-text"></span>
+            イスラエル
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">
+            <span data-feather="file-text"></span>
+            アフリカ
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">
+            <span data-feather="file-text"></span>
+            インド
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+    <div class="">
+      <h3>新規スタートアップ</h3>
+      <% @latest.each do |l| %>
+        <div class="card" style="width: 50%;">
+          <div class="card-body">
+            <%= l.name %>
+            <%= l.established_date %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    <div class="">
+      <h3>注目スタートアップ</h3>
+      <% @latest.each do |l| %>
+        <div class="card" style="width: 50%;">
+          <div class="card-body">
+            <%= l.name %>
+            <%= l.established_date %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </main>
+</div>
