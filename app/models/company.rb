@@ -20,7 +20,7 @@ class Company < ApplicationRecord
   scope :industry_like, -> (industry) { where('industry LIKE ?', "%#{industry}%") if industry.present?}
   scope :has_vc, -> (share_holder) { where('share_holder LIKE ?', "vc") }
   scope :latest, -> { where(country_id: 1).order(created_at: :desc).limit(10) }
-  scope :hot, -> { order(total_fund_amount: :desc).limit(10) }
+  scope :hot, -> { where(country_id: 1).order(total_fund_amount: :desc).limit(10) }
 
   def self.import(file)
     CSV.foreach(file.path, headers: true, encoding: 'UTF-8') do |row|
