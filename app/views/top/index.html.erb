@@ -76,25 +76,27 @@
     </div>
   </nav>
 
-  <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+  <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4 container">
     <div class="">
-      <h3>新規スタートアップ</h3>
+      <h3 class="font-weight-bold">新規スタートアップ</h3>
       <% @latest.each do |l| %>
-        <div class="card" style="width: 50%;">
-          <div class="card-body">
-            <%= l.name %>
-            <%= l.established_date %>
+        <div class="card" style="width: 50%;"> 
+          <div class="card-body row">
+            <span class="col-md-4"><%= l.name %></span>
+            <span class="col-md-4"><%= l.established_date %></span>
+            <span class="col-md-4"><%= l.total_fund_amount %></span>
           </div>
         </div>
       <% end %>
     </div>
-    <div class="">
-      <h3>注目スタートアップ</h3>
-      <% @latest.each do |l| %>
+    <div class="mt-5">
+      <h3 class="font-weight-bold">注目スタートアップ</h3>
+      <% @hot.each do |h| %>
         <div class="card" style="width: 50%;">
-          <div class="card-body">
-            <%= l.name %>
-            <%= l.established_date %>
+          <div class="card-body row">
+            <span class="col-md-4"><%= h.name %></span>
+            <span class="col-md-4"><%= h.established_date %></span>
+            <span class="col-md-4"><%= h.total_fund_amount %></span>
           </div>
         </div>
       <% end %>
