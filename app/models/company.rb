@@ -1,7 +1,7 @@
 require 'csv'
 class Company < ApplicationRecord
   belongs_to :country
-  # belongs_to :funding_stage
+  belongs_to :funding_stage
 
   validates :name, uniqueness: true
 
@@ -9,9 +9,9 @@ class Company < ApplicationRecord
     return if search_params.blank?
     name_like(search_params[:name])
     .country(search_params[:country_id])
-    .funding_stage(search_params[:funding_stage])
     .industry_like(search_params[:industry])
-    .has_vc(search_params[:share_holder])
+    # .has_vc(search_params[:share_holder])
+    # .funding_stage(search_params[:funding_stage])
   end
 
   scope :name_like, -> (name) { where('name LIKE ?', "%#{name}%") if name.present?}
